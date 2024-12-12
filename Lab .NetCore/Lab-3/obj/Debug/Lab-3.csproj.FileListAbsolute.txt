@@ -1,0 +1,14 @@
+C:\Users\parma\Desktop\Sem-4\Sem-4\dotNetCore\Lab-3\bin\Debug\Lab-3.exe.config
+C:\Users\parma\Desktop\Sem-4\Sem-4\dotNetCore\Lab-3\bin\Debug\Lab-3.exe
+C:\Users\parma\Desktop\Sem-4\Sem-4\dotNetCore\Lab-3\bin\Debug\Lab-3.pdb
+C:\Users\parma\Desktop\Sem-4\Sem-4\dotNetCore\Lab-3\obj\Debug\Lab-3.csproj.AssemblyReference.cache
+C:\Users\parma\Desktop\Sem-4\Sem-4\dotNetCore\Lab-3\obj\Debug\Lab-3.csproj.CoreCompileInputs.cache
+C:\Users\parma\Desktop\Sem-4\Sem-4\dotNetCore\Lab-3\obj\Debug\Lab-3.exe
+C:\Users\parma\Desktop\Sem-4\Sem-4\dotNetCore\Lab-3\obj\Debug\Lab-3.pdb
+C:\Users\parma\Desktop\Sem-4\.NetCore\Lab-3\obj\Debug\Lab-3.csproj.AssemblyReference.cache
+C:\Users\parma\Desktop\Sem-4\.NetCore\Lab-3\obj\Debug\Lab-3.csproj.CoreCompileInputs.cache
+C:\Users\parma\Desktop\Sem-4\.NetCore\Lab-3\obj\Debug\Lab-3.exe
+C:\Users\parma\Desktop\Sem-4\.NetCore\Lab-3\obj\Debug\Lab-3.pdb
+C:\Users\parma\Desktop\Sem-4\.NetCore\Lab-3\bin\Debug\Lab-3.exe.config
+C:\Users\parma\Desktop\Sem-4\.NetCore\Lab-3\bin\Debug\Lab-3.exe
+C:\Users\parma\Desktop\Sem-4\.NetCore\Lab-3\bin\Debug\Lab-3.pdb
