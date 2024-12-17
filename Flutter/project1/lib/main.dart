@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:project1/lab%206/extraLayout.dart';
+import 'package:project1/lab%206/lab6_2.dart';
+import 'package:project1/lab%206/lab6_3_2.dart';
+
+import 'lab 6/lab6_1.dart';
+import 'lab 6/lab6_3_1.dart';
+import 'layout.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +38,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const Layout5(),
     );
   }
 }
@@ -119,7 +126,8 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ), // This trailing comma makes auto-formatting
+      // nicer for build methods.
     );
   }
 }
