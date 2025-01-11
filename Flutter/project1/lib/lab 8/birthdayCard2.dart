@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project1/extra/BirthdayScreen.dart';
-import 'package:project1/extra/birthday_card.dart';
 
+import 'BirthdayScreen.dart';
 class Birthdaycard2 extends StatelessWidget {
   Birthdaycard2({super.key});
 

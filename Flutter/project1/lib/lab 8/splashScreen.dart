@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:project1/extra/birthdayCard2.dart';
+
+import 'birthdayCard2.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
