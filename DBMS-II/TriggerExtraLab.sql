@@ -251,7 +251,71 @@ end;
 drop trigger tr_insert_basedOn_rating;
 
 --3.	Create trigger that prevent duplicate 'MovieTitle' of Movies table and log details of it in MoviesLog table.
+CREATE TRIGGER PreventDuplicateMovieTitle
+ON Movies
+INSTEAD OF INSERT
+AS
+BEGIN
+    DECLARE @MovieTitle VARCHAR(255);
+    DECLARE @MovieID INT;
+    
+    SELECT @MovieTitle = MovieTitle, @MovieID = MovieID FROM inserted;
+
+    IF NOT EXISTS (SELECT 1 FROM Movies WHERE MovieTitle = @MovieTitle AND MovieID != @MovieID)
+    BEGIN
+        INSERT INTO Movies
+        SELECT MovieID, MovieTitle, ReleaseYear, Genre, Rating, Duration FROM inserted;
+    END
+    ELSE
+    BEGIN
+        INSERT INTO MoviesLog (MovieID, MovieTitle, ActionPerformed, ActionDate)
+        SELECT MovieID, MovieTitle, 'Duplicate MovieTitle Attempt', GETDATE() FROM inserted;
+    END
+END;
 
 --4.	Create trigger that prevents to insert pre-release movies.
+CREATE TRIGGER PreventPreReleaseMovies
+ON Movies
+INSTEAD OF INSERT
+AS
+BEGIN
+    DECLARE @ReleaseYear INT;
+    
+    SELECT @ReleaseYear = ReleaseYear FROM inserted;
+
+    IF @ReleaseYear <= YEAR(GETDATE())
+    BEGIN
+        INSERT INTO Movies
+        SELECT MovieID, MovieTitle, ReleaseYear, Genre, Rating, Duration FROM inserted;
+    END
+    ELSE
+    BEGIN
+        INSERT INTO MoviesLog (MovieID, MovieTitle, ActionPerformed, ActionDate)
+        SELECT MovieID, MovieTitle, 'Pre-release Movie Attempt', GETDATE() FROM inserted;
+    END
+END;
 
 --5.	Develop a trigger to ensure that the Duration of a movie cannot be updated to a value greater than 120 minutes (2 hours) to prevent unrealistic entries.
+CREATE TRIGGER PreventDurationUpdateAbove120Minutes
+ON Movies
+INSTEAD OF UPDATE
+AS
+BEGIN
+    DECLARE @NewDuration INT;
+    DECLARE @MovieID INT;
+    
+    SELECT @NewDuration = Duration, @MovieID = MovieID FROM inserted;
+
+    IF @NewDuration <= 120
+    BEGIN
+        UPDATE Movies
+        SET MovieTitle = inserted.MovieTitle, ReleaseYear = inserted.ReleaseYear, Genre = inserted.Genre, Rating = inserted.Rating, Duration = inserted.Duration
+        FROM inserted
+        WHERE Movies.MovieID = inserted.MovieID;
+    END
+    ELSE
+    BEGIN
+        INSERT INTO MoviesLog (MovieID, MovieTitle, ActionPerformed, ActionDate)
+        SELECT MovieID, MovieTitle, 'Duration Update Attempt > 120 Minutes', GETDATE() FROM inserted;
+    END
+END;
