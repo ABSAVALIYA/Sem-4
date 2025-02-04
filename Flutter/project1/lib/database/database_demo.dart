@@ -47,6 +47,25 @@ class _DatabaseDemoState extends State<DatabaseDemo> {
     _fetchData();
   }
 
+  Future<void> _deleteData(int id) async {
+    await _database.delete(
+      'todo',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    _fetchData();
+  }
+
+  Future<void> _updateData(int id, String title, String desc) async {
+    await _database.update(
+      'todo',
+      {'title': title, 'desc': desc},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    _fetchData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,11 +75,66 @@ class _DatabaseDemoState extends State<DatabaseDemo> {
       body: ListView.builder(
           itemCount: data.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: data[index]['title'],
-              subtitle: data[index]['desc'],
-              splashColor: Colors.red,
-              textColor: Colors.white,
+            return Container(
+              color: Colors.blue,
+              child: ListTile(
+                title: Text(data[index]['title']),
+                subtitle: Text(data[index]['desc']),
+                trailing: Container(
+                  width: 80,
+                  child: Row(
+                    children: [
+                      IconButton(onPressed: () {
+                        titleController.text = data[index]['title'];
+                        descController.text = data[index]['desc'];
+                        showModalBottomSheet(context: context, builder: (context) {
+                          return Column(
+                            children: [
+                              TextField(
+                                controller: titleController,
+                                decoration: InputDecoration(
+                                  labelText: 'title',
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                              TextField(
+                                controller: descController,
+                                decoration: InputDecoration(
+                                  labelText: 'desc',
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                              ElevatedButton(onPressed: () {
+                                _updateData(data[index]['id'], titleController.text, descController.text);
+                                titleController.clear();
+                                descController.clear();
+                                Navigator.pop(context);
+                              }, child: Text('Edit')),
+                            ],
+                          );
+                        },);
+                      }, icon: Icon(Icons.edit)),
+                      IconButton(onPressed: () {
+                          showDialog(context: context, builder: (context) {
+                            return AlertDialog(
+                              title: Text('Do you want to delete the data?'),
+                              actions: [
+                                ElevatedButton(onPressed: () {
+                                  _deleteData(data[index]['id']);
+                                  Navigator.pop(context);
+                                }, child: Text('Yes')),
+                                ElevatedButton(onPressed: () {
+                                  Navigator.pop(context);
+                                }, child: Text('No')),
+                              ],
+                            );
+                          },);
+                      }, icon: Icon(Icons.delete)),
+                    ],
+                  ),
+                ),
+                textColor: Colors.white,
+              ),
             );
           },),
       floatingActionButton: FloatingActionButton(onPressed: () {
